@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cg5hfy2mvpurx"]
+
+[ext_resource type="Resource" uid="uid://emce7n7o246l" path="res://LevelManager/Data/TestSong.tres" id="1_ucegf"]
+[ext_resource type="Script" path="res://LevelManager/LevelData.cs" id="2_qi3n5"]
+
+[resource]
+script = ExtResource("2_qi3n5")
+SongStart = ExtResource("1_ucegf")
+SongLoop = ExtResource("1_ucegf")
+SongEnd = ExtResource("1_ucegf")

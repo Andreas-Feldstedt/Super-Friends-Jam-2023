@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://w4qf1u73vqm4"]
+
+[ext_resource type="Script" path="res://LevelManager/CountdownStart.cs" id="1_02dj5"]
+[ext_resource type="Script" path="res://LevelManager/LevelManager.cs" id="1_f40kt"]
+[ext_resource type="FontFile" uid="uid://dsnirfh2blmxb" path="res://Game Kit/game-ui-pixel-art/Font/Planes_ValMore.ttf" id="2_ctv2d"]
+[ext_resource type="Resource" uid="uid://cg5hfy2mvpurx" path="res://LevelManager/Data/TestLevel.tres" id="2_egwc2"]
+[ext_resource type="Script" path="res://BeatMachine/BeatMachine.cs" id="5_q4wyy"]
+
+[node name="test_level_manager" type="Node2D"]
+script = ExtResource("1_f40kt")
+_levelData = ExtResource("2_egwc2")
+
+[node name="BeatMachine" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("5_q4wyy")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 459.0
+offset_top = 148.0
+offset_right = 642.0
+offset_bottom = 277.0
+theme_override_fonts/normal_font = ExtResource("2_ctv2d")
+theme_override_font_sizes/normal_font_size = 128
+text = "99"
+script = ExtResource("1_02dj5")
+_beatDuration = 64
+
+[node name="Camera2D" type="Camera2D" parent="."]

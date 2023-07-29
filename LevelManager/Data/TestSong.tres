@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://emce7n7o246l"]
+
+[ext_resource type="AudioStream" uid="uid://b8rpwd5aypp8h" path="res://rolly-rolling_alien_ball_-_take_two.mp3" id="1_ht4nu"]
+[ext_resource type="Script" path="res://LevelManager/SongData.cs" id="2_qidec"]
+
+[resource]
+script = ExtResource("2_qidec")
+Stream = ExtResource("1_ht4nu")
+Bpm = 0.0

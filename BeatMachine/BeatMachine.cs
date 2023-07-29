@@ -14,16 +14,12 @@ public partial class BeatMachine : AudioStreamPlayer2D
 	private AudioStreamGeneratorPlayback _playback;
 	
 	/// beats per minute
-	[Export] private float _bpm = 100; 
+	[Export] public float Bpm = 100; 
 	
 	/// seconds per beat 
 	[Export] private float _spb;
 	
-	/// sampling frequency
-	[Export] private float _sampleHz = 22050.0f;
-	
 	[ExportCategory("Debug")]
-	[Export] private int _samplesPerBeat;
 	[Export] private float _songPosSecs;
 	[Export] private float _songPosBeat;
 	
@@ -57,10 +53,9 @@ public partial class BeatMachine : AudioStreamPlayer2D
 		Debug.Assert(_instance == null);
 		_instance = this;
 		
-		_spb = 60f / _bpm;
+		_spb = 60f / Bpm;
 	
-		_samplesPerBeat = Mathf.FloorToInt(_sampleHz * _spb);
-	_inputAnticipation = new();
+		_inputAnticipation = new();
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -72,7 +67,6 @@ public partial class BeatMachine : AudioStreamPlayer2D
 	
 		_songPosBeat = _songPosSecs / _spb;
 		
-	
 		foreach (var beatInput in _beatInputs)
 			if(Input.IsActionJustPressed(beatInput))
 				if (_inputAnticipation.ContainsKey(beatInput))
