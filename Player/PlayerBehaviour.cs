@@ -88,7 +88,7 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 
 		float duration = 1 / (_bm.SingletonBpm / 60);
 
-        _moveTween = GetTree().CreateTween();
+		_moveTween = GetTree().CreateTween();
 		_moveTween.TweenProperty(this, "position", targetPosition, duration).SetTrans(Tween.TransitionType.Expo);
 		_moveTween.SetEase(Tween.EaseType.InOut);
 	}

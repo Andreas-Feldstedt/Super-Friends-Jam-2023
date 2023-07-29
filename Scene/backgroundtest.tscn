@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://3ipbp3y8mkxp"]
+[gd_scene load_steps=18 format=3 uid="uid://3ipbp3y8mkxp"]
 
 [ext_resource type="Texture2D" uid="uid://bafy1xvpha6c5" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/8.png" id="1_qtdtw"]
+[ext_resource type="PackedScene" uid="uid://omasqr86rqry" path="res://BeatMachine/beat_machine.tscn" id="1_xb38y"]
 [ext_resource type="Texture2D" uid="uid://b56wk8tx1stmu" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/7.png" id="2_ndjle"]
 [ext_resource type="Texture2D" uid="uid://dpfh3xk3ovxs0" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/6.png" id="3_u0vxb"]
 [ext_resource type="Texture2D" uid="uid://cbfueanw3ptr1" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/5.png" id="4_fey6j"]
@@ -8,16 +9,18 @@
 [ext_resource type="Texture2D" uid="uid://cdk1snstw7cm3" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/3.png" id="6_70qru"]
 [ext_resource type="Texture2D" uid="uid://bn5vo6jehniv6" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/2.png" id="7_wyyvb"]
 [ext_resource type="Texture2D" uid="uid://c2i7xjkawlucu" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/1.png" id="8_muovx"]
-[ext_resource type="TileSet" uid="uid://daej3yovrugig" path="res://Scene/fieldtiles.tres" id="9_ycxh7"]
+[ext_resource type="TileSet" uid="uid://c1r5ncgtjqo4t" path="res://Scene/fieldtiles.tres" id="9_ycxh7"]
 [ext_resource type="Texture2D" uid="uid://cv5qkxye7hpd" path="res://Game Kit/pixel-art-tiny-hero-sprites/1 Pink_Monster/Pink_Monster.png" id="10_0s1is"]
 [ext_resource type="Texture2D" uid="uid://mpaehud7gaun" path="res://Game Kit/pixel-art-tiny-hero-sprites/2 Owlet_Monster/Owlet_Monster.png" id="11_2r4at"]
-[ext_resource type="Texture2D" uid="uid://bpnpv6tf8fr1j" path="res://Game Kit/pixel-art-tiny-hero-sprites/3 Dude_Monster/Dude_Monster.png" id="12_i7qvf"]
+[ext_resource type="PackedScene" uid="uid://jf8yyjaiurlj" path="res://Player/player.tscn" id="12_1jhko"]
 [ext_resource type="Texture2D" uid="uid://cb0t2mrdi7q65" path="res://Game Kit/tiny-monsters-pixel-art-pack/1 Bear/Bear.png" id="13_4ikx0"]
 [ext_resource type="Texture2D" uid="uid://dtls0lsanepyl" path="res://Game Kit/platformer-pixel-art-tileset/Objects/Spikes/Spikes1_1.png" id="14_wc7ce"]
 [ext_resource type="Texture2D" uid="uid://ditgmj3bsb87" path="res://Game Kit/platformer-pixel-art-tileset/Objects/Trees/Tree2.png" id="15_tlnmv"]
 [ext_resource type="Texture2D" uid="uid://fue0ywmogyvd" path="res://Game Kit/platformer-pixel-art-tileset/Objects/Trees/Tree3.png" id="16_bku5l"]
 
 [node name="Scene" type="Node2D"]
+
+[node name="BeatMachine" parent="." instance=ExtResource("1_xb38y")]
 
 [node name="8" type="Sprite2D" parent="."]
 z_index = -5
@@ -123,18 +126,8 @@ position = Vector2(-224, 128)
 texture = ExtResource("11_2r4at")
 centered = false
 
-[node name="DudeMonster" type="Sprite2D" parent="."]
-position = Vector2(-192, 128)
-texture = ExtResource("12_i7qvf")
-centered = false
-
-[node name="Camera2D" type="Camera2D" parent="DudeMonster"]
-position = Vector2(96, -32)
-zoom = Vector2(3.375, 3.375)
-limit_left = -100000
-limit_top = -100000
-limit_right = 100000
-limit_bottom = 100000
+[node name="Player" parent="." instance=ExtResource("12_1jhko")]
+position = Vector2(-176, 160)
 
 [node name="Bear" type="Sprite2D" parent="."]
 position = Vector2(-64, 128)
