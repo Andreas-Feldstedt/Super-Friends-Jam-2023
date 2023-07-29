@@ -31,13 +31,11 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 	public void ProcessBeat(int beat)
 	{
 		_currentBeat = beat;
+		GD.Print(beat);
 	}
 
 	private void HandleInput()
 	{
-		if (_actedBeat == _currentBeat) // Only one action per beat
-			return;
-
 		string action = string.Empty;
 
 		if (Input.IsActionJustPressed("right"))
@@ -55,8 +53,11 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 		if (string.IsNullOrEmpty(action))
 			return;
 
+		if (_actedBeat == _currentBeat)
+			return;
+
 		float error = GetError();
-		_actedBeat = error > 0 ? _currentBeat : _currentBeat + 1;
+		_actedBeat = error > 0 ? _currentBeat - 1 : _currentBeat;
 
 		if (Mathf.Abs(error) < _errorThreshold)
 		{
@@ -101,7 +102,7 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 
 	private void Stumble()
 	{
-
+		GD.Print("Stumble!");
 	}
 
 	private void Move(Vector2 direction)
