@@ -44,7 +44,11 @@ public partial class BeatMachine : AudioStreamPlayer2D
 	
 	private string[] _beatInputs =
 	{
-		"TestBeatActoin"
+		"TestBeatActoin",
+		"up",
+		"down",
+		"left",
+		"right"
 	};
 		
 	private Godot.Collections.Dictionary<string, float> _inputAnticipation;
