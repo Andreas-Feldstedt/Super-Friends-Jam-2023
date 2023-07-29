@@ -20,7 +20,7 @@ public partial class CountdownStart : RichTextLabel, IProcessBeat
         _a = Scale * 1.3f;
         _b = Scale;
         
-        Text = $"{_numCountdowns}";
+        Text = "0";
         
         BeatMachine.Instance.SingletonRegisterBeatProcessor(this);
     }
@@ -37,8 +37,9 @@ public partial class CountdownStart : RichTextLabel, IProcessBeat
         
         // gets fractional part of a beat
         float t = Mathf.PosMod(_lastBeatSwap - BeatMachine.Instance.SingletonTimeBeat, _beatDuration);
-        
-        Position = _a.Lerp(_b, t);
+        t = 1 - Mathf.Pow(1 - t, 4);
+            
+        Scale = _a.Lerp(_b, t);
     }
 
     public void ProcessBeat(int beat)
@@ -50,7 +51,5 @@ public partial class CountdownStart : RichTextLabel, IProcessBeat
             return;
         
         _lastBeatSwap = beat;
-        ++_texCurrent;
-        Text = $"{_numCountdowns - _texCurrent}";
     }
 }
