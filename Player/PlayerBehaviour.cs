@@ -4,128 +4,155 @@ using System;
 
 public partial class PlayerBehaviour : Node2D, IProcessBeat
 {
-	[Export] private float _errorThreshold = 0.1f;
-	[Export] private int _tileSizePixels = 32;
-	[Export] private float _tweenBeatFraction = 0.5f;
+    [Export] private float _errorGrace = 0.1f;
+    [Export] private int _tileSizePixels = 32;
+    [Export] private float _moveDurationSeconds = 0.2f;
 
-	private BeatMachine _bm;
-	private int _currentBeat;
-	private int _actedBeat;
-	private Tween _moveTween;
-	private Vector2 _gridPosition;
+    private BeatMachine _bm;
+    private int _currentBeat;
+    private int _actedBeat;
+    private Tween _moveTween;
+    private Vector2 _gridPosition;
+    private double _elapsedAfterBeat;
+    private double _bps;
+    private BeatPhase _phase;
+    private bool _canAct = true;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		_bm = BeatMachine.Instance;
-		_bm.SingletonRegisterBeatProcessor(this);
-		_gridPosition = Position;
-	}
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        _bm = BeatMachine.Instance;
+        _bm.SingletonRegisterBeatProcessor(this);
+        _gridPosition = Position;
+        _bps = _bm.SingletonBpm / 60;
+    }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		HandleInput();
-	}
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+        _elapsedAfterBeat += delta;
 
-	public void ProcessBeat(int beat)
-	{
-		_currentBeat = beat;
-		GD.Print(beat);
-	}
+        if (_phase == BeatPhase.Off && _elapsedAfterBeat >= (1 - _errorGrace) / _bps)
+            BeatGracePrep();
 
-	private void HandleInput()
-	{
-		string action = string.Empty;
+        if (_phase == BeatPhase.PostBeat && _elapsedAfterBeat >= _errorGrace / _bps)
+            BeatGraceWrap();
 
-		if (Input.IsActionJustPressed("right"))
-			action = "right";
+        HandleInput();
+    }
 
-		if (Input.IsActionJustPressed("left"))
-			action = "left";
+    private void BeatGracePrep()
+    {
+        _currentBeat++;
+        _phase = BeatPhase.PreBeat;
+        _canAct = true;
+    }
 
-		if (Input.IsActionJustPressed("up"))
-			action = "up";
+    public void ProcessBeat(int beat)
+    {
+        _elapsedAfterBeat = 0f;
+        _phase = BeatPhase.PostBeat;
+    }
 
-		if (Input.IsActionJustPressed("down"))
-			action = "down";
+    private void BeatGraceWrap()
+    {
+        _phase = BeatPhase.Off;
+        _canAct = false;
+    }
 
-		if (string.IsNullOrEmpty(action))
-			return;
+    private void HandleInput()
+    {
+        if (!_canAct)
+        {
+            GD.Print(GetError());
 
-		if (_actedBeat == _currentBeat)
-			return;
+            return; // TODO: Stumble?
+        }
+            
 
-		float error = GetError();
-		_actedBeat = error > 0 ? _currentBeat - 1 : _currentBeat;
+        string action = string.Empty;
 
-		if (Mathf.Abs(error) < _errorThreshold)
-		{
-			ConsumeAction(action);
-		}
-		else
-		{
-			Stumble();
-		}
-	}
+        if (Input.IsActionJustPressed("right"))
+            action = "right";
 
-	/// <summary>
-	/// Calculates how far off the beat you currently are.
-	/// </summary>
-	/// <returns>The distance to the nearest beat in beats, ranges from -0.5 to 0.5.</returns>
-	private float GetError()
-	{
-		float beat = Mathf.PosMod(_bm.SingletonTimeBeat, 1);
-		float error = beat > 0.5 ? beat - 1 : beat;
+        if (Input.IsActionJustPressed("left"))
+            action = "left";
 
-		return error;
-	}
+        if (Input.IsActionJustPressed("up"))
+            action = "up";
 
-	private void ConsumeAction(string action)
-	{
-		switch (action)
-		{
-			case "left":
-				Move(Vector2.Left);
-				break;
-			case "right":
-				Move(Vector2.Right);
-				break;
-			case "up":
-				Jump();
-				break;
-			case "down":
-				// Does not do anything for the moment
-				break;
-		}
-	}
+        if (Input.IsActionJustPressed("down"))
+            action = "down";
 
-	private void Stumble()
-	{
-		GD.Print("Stumble!");
-	}
+        if (string.IsNullOrEmpty(action))
+            return;
 
-	private void Move(Vector2 direction)
-	{
-		_gridPosition += direction * _tileSizePixels;
+        _canAct = false;
+        ConsumeAction(action);
+    }
 
-		if (_moveTween != null)
-			_moveTween.Kill();
+    /// <summary>
+    /// Calculates how far off the beat you currently are.
+    /// </summary>
+    /// <returns>The distance to the nearest beat in beats, ranges from -0.5 to 0.5.</returns>
+    private float GetError()
+    {
+        float beat = Mathf.PosMod(_bm.SingletonTimeBeat, 1);
+        float error = beat > 0.5 ? beat - 1 : beat;
 
-		float duration = 1 / (_bm.SingletonBpm / 60);
+        return error;
+    }
 
-		_moveTween = GetTree().CreateTween();
-		_moveTween.TweenProperty(this, "position", _gridPosition, duration).SetTrans(Tween.TransitionType.Expo);
-		_moveTween.SetEase(Tween.EaseType.InOut);
-	}
+    private void ConsumeAction(string action)
+    {
+        switch (action)
+        {
+            case "left":
+                Move(Vector2.Left);
+                break;
+            case "right":
+                Move(Vector2.Right);
+                break;
+            case "up":
+                Jump();
+                break;
+            case "down":
+                // Does not do anything for the moment
+                break;
+        }
+    }
 
-	private void Jump()
-	{
+    private void Stumble()
+    {
+        GD.Print("Stumble!");
+    }
 
-	}
+    private void Move(Vector2 direction)
+    {
+        _gridPosition += direction * _tileSizePixels;
 
-	private void HandleGravity()
-	{
+        if (_moveTween != null)
+            _moveTween.Kill();
 
-	}
+        _moveTween = GetTree().CreateTween();
+        _moveTween.TweenProperty(this, "position", _gridPosition, _moveDurationSeconds).SetTrans(Tween.TransitionType.Expo);
+        _moveTween.SetEase(Tween.EaseType.InOut);
+    }
+
+    private void Jump()
+    {
+
+    }
+
+    private void HandleGravity()
+    {
+
+    }
+
+    private enum BeatPhase
+    {
+        Off,
+        PreBeat,
+        PostBeat
+    }
 }
