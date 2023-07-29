@@ -1,0 +1,151 @@
+[gd_scene load_steps=15 format=3 uid="uid://3ipbp3y8mkxp"]
+
+[ext_resource type="Texture2D" uid="uid://bafy1xvpha6c5" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/8.png" id="1_qtdtw"]
+[ext_resource type="Texture2D" uid="uid://b56wk8tx1stmu" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/7.png" id="2_ndjle"]
+[ext_resource type="Texture2D" uid="uid://dpfh3xk3ovxs0" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/6.png" id="3_u0vxb"]
+[ext_resource type="Texture2D" uid="uid://cbfueanw3ptr1" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/5.png" id="4_fey6j"]
+[ext_resource type="Texture2D" uid="uid://d04b4ep6pvrsf" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/4.png" id="5_70sae"]
+[ext_resource type="Texture2D" uid="uid://cdk1snstw7cm3" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/3.png" id="6_70qru"]
+[ext_resource type="Texture2D" uid="uid://bn5vo6jehniv6" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/2.png" id="7_wyyvb"]
+[ext_resource type="Texture2D" uid="uid://c2i7xjkawlucu" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/1.png" id="8_muovx"]
+[ext_resource type="Texture2D" uid="uid://dsjxiwk3qcytc" path="res://Game Kit/platformer-pixel-art-tileset/Tiles/TileSet.png" id="9_cktnp"]
+[ext_resource type="Texture2D" uid="uid://cv5qkxye7hpd" path="res://Game Kit/pixel-art-tiny-hero-sprites/1 Pink_Monster/Pink_Monster.png" id="10_0s1is"]
+[ext_resource type="Texture2D" uid="uid://mpaehud7gaun" path="res://Game Kit/pixel-art-tiny-hero-sprites/2 Owlet_Monster/Owlet_Monster.png" id="11_2r4at"]
+[ext_resource type="Texture2D" uid="uid://bpnpv6tf8fr1j" path="res://Game Kit/pixel-art-tiny-hero-sprites/3 Dude_Monster/Dude_Monster.png" id="12_i7qvf"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p7c03"]
+texture = ExtResource("9_cktnp")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_2kslk"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_p7c03")
+
+[node name="Background" type="Node2D"]
+
+[node name="8" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+texture = ExtResource("1_qtdtw")
+
+[node name="7" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+texture = ExtResource("2_ndjle")
+
+[node name="6" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+texture = ExtResource("3_u0vxb")
+
+[node name="5" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+texture = ExtResource("4_fey6j")
+
+[node name="4" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+texture = ExtResource("5_70sae")
+
+[node name="3" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+texture = ExtResource("6_70qru")
+
+[node name="2" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+texture = ExtResource("7_wyyvb")
+
+[node name="1" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+texture = ExtResource("8_muovx")
+
+[node name="9" type="Sprite2D" parent="."]
+position = Vector2(576, 2)
+texture = ExtResource("1_qtdtw")
+
+[node name="10" type="Sprite2D" parent="."]
+position = Vector2(576, 2)
+texture = ExtResource("2_ndjle")
+
+[node name="11" type="Sprite2D" parent="."]
+position = Vector2(576, 2)
+texture = ExtResource("3_u0vxb")
+
+[node name="12" type="Sprite2D" parent="."]
+position = Vector2(576, 2)
+texture = ExtResource("4_fey6j")
+
+[node name="13" type="Sprite2D" parent="."]
+position = Vector2(576, 2)
+texture = ExtResource("5_70sae")
+
+[node name="14" type="Sprite2D" parent="."]
+position = Vector2(576, 2)
+texture = ExtResource("6_70qru")
+
+[node name="15" type="Sprite2D" parent="."]
+position = Vector2(576, 2)
+texture = ExtResource("7_wyyvb")
+
+[node name="16" type="Sprite2D" parent="."]
+position = Vector2(576, 2)
+texture = ExtResource("8_muovx")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_2kslk")
+cell_quadrant_size = 32
+format = 2
+layer_0/tile_data = PackedInt32Array(393207, 65536, 0, 393208, 65536, 0, 393209, 65536, 0, 393210, 65536, 0, 393211, 65536, 0, 393212, 65536, 0, 393213, 65536, 0, 393214, 65536, 0, 393215, 65536, 0, 327680, 65536, 0, 327681, 65536, 0, 327682, 65536, 0, 327683, 65536, 0, 327684, 65536, 0, 327685, 65536, 0, 327686, 65536, 0, 327687, 65536, 0, 327688, 65536, 0, 327689, 65536, 0, 327690, 65536, 0, 327691, 65536, 0, 327692, 65536, 0, 327693, 65536, 0, 327694, 65536, 0, 327695, 65536, 0, 327696, 65536, 0, 327697, 65536, 0, 327698, 65536, 0, 327699, 65536, 0, 327700, 65536, 0, 327701, 65536, 0, 327702, 65536, 0, 327703, 65536, 0, 327704, 65536, 0, 327705, 65536, 0, 327706, 65536, 0)
+
+[node name="PinkMonster" type="Sprite2D" parent="."]
+position = Vector2(-256, 128)
+texture = ExtResource("10_0s1is")
+centered = false
+
+[node name="OwletMonster" type="Sprite2D" parent="."]
+position = Vector2(-224, 128)
+texture = ExtResource("11_2r4at")
+centered = false
+
+[node name="DudeMonster" type="Sprite2D" parent="."]
+position = Vector2(-192, 128)
+texture = ExtResource("12_i7qvf")
+centered = false
