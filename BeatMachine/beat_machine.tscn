@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://omasqr86rqry"]
+[gd_scene load_steps=3 format=3 uid="uid://cevsnhwl1eywc"]
 
-[ext_resource type="AudioStream" uid="uid://bnajngqio663x" path="res://170bpm-gotta-go-fast.wav" id="1_sj8r7"]
+[ext_resource type="AudioStream" uid="uid://c07w0fc1ejthb" path="res://170bpm-gotta-go-fast-flipped.wav" id="1_5250x"]
 [ext_resource type="Script" path="res://BeatMachine/BeatMachine.cs" id="2_57byk"]
 
 [node name="BeatMachine" type="AudioStreamPlayer2D"]
-stream = ExtResource("1_sj8r7")
+stream = ExtResource("1_5250x")
 autoplay = true
 script = ExtResource("2_57byk")
-_bpm = 170.0
+_bpm = 85.0
