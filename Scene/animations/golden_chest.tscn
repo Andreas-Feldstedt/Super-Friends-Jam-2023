@@ -1,0 +1,84 @@
+[gd_scene load_steps=12 format=3 uid="uid://p2875426eq5t"]
+
+[ext_resource type="Texture2D" uid="uid://cgilqeh2nlsex" path="res://Game Kit/platformer-pixel-art-tileset/Objects_Animated/Golden_Chest_Open.png" id="1_8b7il"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2sfm6"]
+size = Vector2(26, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bqpa"]
+atlas = ExtResource("1_8b7il")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53mqh"]
+atlas = ExtResource("1_8b7il")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlvry"]
+atlas = ExtResource("1_8b7il")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbaxj"]
+atlas = ExtResource("1_8b7il")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4yu7"]
+atlas = ExtResource("1_8b7il")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwral"]
+atlas = ExtResource("1_8b7il")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnk1s"]
+atlas = ExtResource("1_8b7il")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2mkk"]
+atlas = ExtResource("1_8b7il")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t6jdx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bqpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53mqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlvry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbaxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4yu7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwral")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnk1s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2mkk")
+}],
+"loop": true,
+"name": &"Golden Chest",
+"speed": 8.0
+}]
+
+[node name="Golden Chest" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(13, -9)
+shape = SubResource("RectangleShape2D_2sfm6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, -16)
+sprite_frames = SubResource("SpriteFrames_t6jdx")
+animation = &"Golden Chest"
+frame_progress = 0.705901

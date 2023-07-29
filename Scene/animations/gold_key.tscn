@@ -1,0 +1,110 @@
+[gd_scene load_steps=16 format=3 uid="uid://dtppju83cptvi"]
+
+[ext_resource type="Texture2D" uid="uid://c0wimtw4q0pdc" path="res://Game Kit/platformer-pixel-art-tileset/Objects_Animated/Golden_Key.png" id="1_g3acn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37tqd"]
+atlas = ExtResource("1_g3acn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xxpl"]
+atlas = ExtResource("1_g3acn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgc4o"]
+atlas = ExtResource("1_g3acn")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ow2x4"]
+atlas = ExtResource("1_g3acn")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vixh1"]
+atlas = ExtResource("1_g3acn")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_236xd"]
+atlas = ExtResource("1_g3acn")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbvoh"]
+atlas = ExtResource("1_g3acn")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmilv"]
+atlas = ExtResource("1_g3acn")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le34o"]
+atlas = ExtResource("1_g3acn")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qqoj"]
+atlas = ExtResource("1_g3acn")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aj3ht"]
+atlas = ExtResource("1_g3acn")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2pvd"]
+atlas = ExtResource("1_g3acn")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0fh3u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37tqd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xxpl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgc4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ow2x4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vixh1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_236xd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbvoh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vmilv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_le34o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qqoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aj3ht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2pvd")
+}],
+"loop": true,
+"name": &"Golden Key",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tqqx"]
+
+[node name="Gold Key" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+sprite_frames = SubResource("SpriteFrames_0fh3u")
+animation = &"Golden Key"
+autoplay = "Golden Key"
+frame_progress = 0.944
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_6tqqx")
