@@ -1,95 +1,120 @@
 using Godot;
 using Proto;
+using System;
 
 public partial class PlayerBehaviour : Node2D, IProcessBeat
 {
+	[Export] private float _errorThreshold = 0.1f;
 	[Export] private int _tileSizePixels = 32;
 	[Export] private float _tweenBeatFraction = 0.5f;
 
 	private BeatMachine _bm;
-	private bool _isJumping;
+	private int _currentBeat;
+	private int _actedBeat;
 	private Tween _moveTween;
+	private Vector2 _gridPosition;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_bm = BeatMachine.Instance;
 		_bm.SingletonRegisterBeatProcessor(this);
+		_gridPosition = Position;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-
-	}
-
-	private void MoveTween()
-	{
-
+		HandleInput();
 	}
 
 	public void ProcessBeat(int beat)
 	{
-		string input = GetInput();
+		_currentBeat = beat;
+	}
 
-		if (!string.IsNullOrEmpty(input))
+	private void HandleInput()
+	{
+		if (_actedBeat == _currentBeat) // Only one action per beat
+			return;
+
+		string action = string.Empty;
+
+		if (Input.IsActionJustPressed("right"))
+			action = "right";
+
+		if (Input.IsActionJustPressed("left"))
+			action = "left";
+
+		if (Input.IsActionJustPressed("up"))
+			action = "up";
+
+		if (Input.IsActionJustPressed("down"))
+			action = "down";
+
+		if (string.IsNullOrEmpty(action))
+			return;
+
+		float error = GetError();
+		_actedBeat = error > 0 ? _currentBeat : _currentBeat + 1;
+
+		if (Mathf.Abs(error) < _errorThreshold)
 		{
-			GD.Print(input);
-
-			switch (input)
-			{
-				case "left":
-					Move(Vector2.Left);
-					break;
-				case "right":
-					Move(Vector2.Right);
-					break;
-				case "up":
-					Jump();
-					break;
-				case "down":
-					// Does not do anything for the moment
-					break;
-			}
+			ConsumeAction(action);
 		}
 		else
 		{
-			// Do we want to do something when idle?
+			Stumble();
 		}
 	}
 
 	/// <summary>
-	///  Retrieves a single input from the beat machine.
+	/// Calculates how far off the beat you currently are.
 	/// </summary>
-	/// <returns>A single input action as a string.</returns>
-	private string GetInput()
+	/// <returns>The distance to the nearest beat in beats, ranges from -0.5 to 0.5.</returns>
+	private float GetError()
 	{
-		if (_bm.SingletonIsActionPressedBeat("left"))
-			return "left";
+		float beat = Mathf.PosMod(_bm.SingletonTimeBeat, 1);
+		float error = beat > 0.5 ? beat - 1 : beat;
 
-		if (_bm.SingletonIsActionPressedBeat("right"))
-			return "right";
+		return error;
+	}
 
-		if (_bm.SingletonIsActionPressedBeat("up"))
-			return "up";
+	private void ConsumeAction(string action)
+	{
+		switch (action)
+		{
+			case "left":
+				Move(Vector2.Left);
+				break;
+			case "right":
+				Move(Vector2.Right);
+				break;
+			case "up":
+				Jump();
+				break;
+			case "down":
+				// Does not do anything for the moment
+				break;
+		}
+	}
 
-		if (_bm.SingletonIsActionPressedBeat("down"))
-			return "down";
+	private void Stumble()
+	{
 
-		return null;
 	}
 
 	private void Move(Vector2 direction)
 	{
-		Vector2 targetPosition = Position + direction * _tileSizePixels;
-		
+		_gridPosition += direction * _tileSizePixels;
+
 		if (_moveTween != null)
 			_moveTween.Kill();
 
 		float duration = 1 / (_bm.SingletonBpm / 60);
 
 		_moveTween = GetTree().CreateTween();
-		_moveTween.TweenProperty(this, "position", targetPosition, duration).SetTrans(Tween.TransitionType.Expo);
+		_moveTween.TweenProperty(this, "position", _gridPosition, duration).SetTrans(Tween.TransitionType.Expo);
 		_moveTween.SetEase(Tween.EaseType.InOut);
 	}
 
