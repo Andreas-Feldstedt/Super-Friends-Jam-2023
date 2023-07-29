@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://3ipbp3y8mkxp"]
+[gd_scene load_steps=17 format=3 uid="uid://3ipbp3y8mkxp"]
 
 [ext_resource type="Texture2D" uid="uid://bafy1xvpha6c5" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/8.png" id="1_qtdtw"]
 [ext_resource type="Texture2D" uid="uid://b56wk8tx1stmu" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/7.png" id="2_ndjle"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://cv5qkxye7hpd" path="res://Game Kit/pixel-art-tiny-hero-sprites/1 Pink_Monster/Pink_Monster.png" id="10_0s1is"]
 [ext_resource type="Texture2D" uid="uid://mpaehud7gaun" path="res://Game Kit/pixel-art-tiny-hero-sprites/2 Owlet_Monster/Owlet_Monster.png" id="11_2r4at"]
 [ext_resource type="Texture2D" uid="uid://bpnpv6tf8fr1j" path="res://Game Kit/pixel-art-tiny-hero-sprites/3 Dude_Monster/Dude_Monster.png" id="12_i7qvf"]
+[ext_resource type="Texture2D" uid="uid://cb0t2mrdi7q65" path="res://Game Kit/tiny-monsters-pixel-art-pack/1 Bear/Bear.png" id="13_4ikx0"]
+[ext_resource type="Texture2D" uid="uid://bp76umvnc8l3b" path="res://Game Kit/game-ui-pixel-art/2 Bars/Healthbar_full.png" id="14_0br6f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p7c03"]
 texture = ExtResource("9_cktnp")
@@ -63,7 +65,9 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_p7c03")
 
-[node name="Background" type="Node2D"]
+[node name="Scene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="8" type="Sprite2D" parent="."]
 position = Vector2(0, 2)
@@ -149,3 +153,13 @@ centered = false
 position = Vector2(-192, 128)
 texture = ExtResource("12_i7qvf")
 centered = false
+
+[node name="Bear" type="Sprite2D" parent="."]
+position = Vector2(-64, 128)
+texture = ExtResource("13_4ikx0")
+centered = false
+offset = Vector2(0, -8)
+
+[node name="HealthbarFull" type="Sprite2D" parent="."]
+position = Vector2(-224, -128)
+texture = ExtResource("14_0br6f")
