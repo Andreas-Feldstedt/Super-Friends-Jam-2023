@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bkdt7cixdvjxi"]
 
 [ext_resource type="PackedScene" uid="uid://jf8yyjaiurlj" path="res://Player/player.tscn" id="1_ix1uf"]
-[ext_resource type="AudioStream" uid="uid://b8rpwd5aypp8h" path="res://rolly-rolling_alien_ball_-_take_two.mp3" id="2_h5is3"]
+[ext_resource type="AudioStream" uid="uid://6b3rmo71dvw0" path="res://rolly-rolling_alien_ball_-_take_two.mp3" id="2_h5is3"]
 [ext_resource type="Script" path="res://BeatMachine/BeatMachine.cs" id="3_uwi8t"]
 
 [node name="Player Test Scene" type="Node2D"]
@@ -10,7 +10,6 @@
 stream = ExtResource("2_h5is3")
 autoplay = true
 script = ExtResource("3_uwi8t")
-_bpm = 170.0
 
 [node name="Player" parent="." instance=ExtResource("1_ix1uf")]
 

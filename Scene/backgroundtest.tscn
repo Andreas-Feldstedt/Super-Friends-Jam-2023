@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://3ipbp3y8mkxp"]
 
 [ext_resource type="Texture2D" uid="uid://bafy1xvpha6c5" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/8.png" id="1_qtdtw"]
-[ext_resource type="PackedScene" path="res://BeatMachine/beat_machine.tscn" id="1_xb38y"]
+[ext_resource type="PackedScene" uid="uid://omasqr86rqry" path="res://BeatMachine/beat_machine.tscn" id="1_xb38y"]
 [ext_resource type="Texture2D" uid="uid://b56wk8tx1stmu" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/7.png" id="2_ndjle"]
 [ext_resource type="Texture2D" uid="uid://dpfh3xk3ovxs0" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/6.png" id="3_u0vxb"]
 [ext_resource type="Texture2D" uid="uid://cbfueanw3ptr1" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/5.png" id="4_fey6j"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cdk1snstw7cm3" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/3.png" id="6_70qru"]
 [ext_resource type="Texture2D" uid="uid://bn5vo6jehniv6" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/2.png" id="7_wyyvb"]
 [ext_resource type="Texture2D" uid="uid://c2i7xjkawlucu" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/1.png" id="8_muovx"]
-[ext_resource type="TileSet" uid="uid://daej3yovrugig" path="res://Scene/fieldtiles.tres" id="9_ycxh7"]
+[ext_resource type="TileSet" uid="uid://c1r5ncgtjqo4t" path="res://Scene/fieldtiles.tres" id="9_ycxh7"]
 [ext_resource type="Texture2D" uid="uid://cv5qkxye7hpd" path="res://Game Kit/pixel-art-tiny-hero-sprites/1 Pink_Monster/Pink_Monster.png" id="10_0s1is"]
 [ext_resource type="Texture2D" uid="uid://mpaehud7gaun" path="res://Game Kit/pixel-art-tiny-hero-sprites/2 Owlet_Monster/Owlet_Monster.png" id="11_2r4at"]
 [ext_resource type="PackedScene" uid="uid://jf8yyjaiurlj" path="res://Player/player.tscn" id="12_1jhko"]

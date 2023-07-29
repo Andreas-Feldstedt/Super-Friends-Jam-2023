@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://c667vy1s4ibcg"]
+[gd_scene load_steps=3 format=3 uid="uid://c7co6uf02isk0"]
 
+[ext_resource type="Texture2D" uid="uid://dgsxrs46wq86o" path="res://Game Kit/30-pixel-art-monster-portrait-icons/1 Main characters/Portraits2_01.png" id="1_uovws"]
 [ext_resource type="Script" path="res://LevelManager/Metronome.cs" id="1_x3wws"]
 
 [node name="Metronome" type="Sprite2D"]
+texture = ExtResource("1_uovws")
 script = ExtResource("1_x3wws")
