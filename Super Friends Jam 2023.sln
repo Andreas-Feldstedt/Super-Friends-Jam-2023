@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Super Friends Jam 2023", "Super Friends Jam 2023.csproj", "{EEC511E4-CF53-4646-A9C3-A6132259DD7F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEC511E4-CF53-4646-A9C3-A6132259DD7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEC511E4-CF53-4646-A9C3-A6132259DD7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEC511E4-CF53-4646-A9C3-A6132259DD7F}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{EEC511E4-CF53-4646-A9C3-A6132259DD7F}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{EEC511E4-CF53-4646-A9C3-A6132259DD7F}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{EEC511E4-CF53-4646-A9C3-A6132259DD7F}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal

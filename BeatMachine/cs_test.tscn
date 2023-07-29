@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://2usjvdnhqt4q"]
+
+[ext_resource type="Script" path="res://BeatMachine/BeatMachine.cs" id="1_60qoa"]
+
+[node name="Node3D" type="Node2D"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("1_60qoa")
