@@ -30,6 +30,9 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 		"right"
 	};
 
+	private RayCast2D _groundRay;
+	private RayCast2D _gravityRay;
+
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -37,6 +40,8 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 		_bm = BeatMachine.Instance;
 		_bm.SingletonRegisterBeatProcessor(this);
 		_gridPosition = Position;
+		_groundRay = GetNode<RayCast2D>("GroundRay");
+		_gravityRay = GetNode<RayCast2D>("GravityRay");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -215,16 +220,15 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 		}
 		else
 		{
-			PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
-			PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(Position, Position + Vector2.Down * Mathf.Inf);
-			Godot.Collections.Dictionary result = spaceState.IntersectRay(query);
-
-			if (result.Count > 0)
+			if (_gravityRay.IsColliding())
 			{
-				_gridPosition = (Vector2)result["position"];
-
 				if (_moveTween != null)
+				{
+					Position = _gridPosition;
 					_moveTween.Kill();
+				}
+
+				_gridPosition = _gravityRay.GetCollisionPoint();
 
 				_moveTween = GetTree().CreateTween();
 				_moveTween.TweenProperty(this, "position", _gridPosition, _moveDurationSeconds).SetTrans(Tween.TransitionType.Expo);
@@ -239,11 +243,16 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 
 	private bool GroundCheck()
 	{
-		PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
-		PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(Position, Position + Vector2.Down * 16);
-		Godot.Collections.Dictionary result = spaceState.IntersectRay(query);
+		if (_groundRay.IsColliding())
+		{
+			GD.Print(_groundRay.GetCollider());
+		}
+		else
+		{
+			GD.Print("Help");
+		}
 
-		return result.Count > 0;
+		return _groundRay.IsColliding();
 	}
 
 	private enum BeatPhase

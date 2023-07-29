@@ -1,7 +1,7 @@
 [gd_scene load_steps=30 format=3 uid="uid://3ipbp3y8mkxp"]
 
 [ext_resource type="Texture2D" uid="uid://bafy1xvpha6c5" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/8.png" id="1_qtdtw"]
-[ext_resource type="PackedScene" path="res://BeatMachine/beat_machine.tscn" id="1_xb38y"]
+[ext_resource type="PackedScene" uid="uid://omasqr86rqry" path="res://BeatMachine/beat_machine.tscn" id="1_xb38y"]
 [ext_resource type="Texture2D" uid="uid://b56wk8tx1stmu" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/7.png" id="2_ndjle"]
 [ext_resource type="Texture2D" uid="uid://dpfh3xk3ovxs0" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/6.png" id="3_u0vxb"]
 [ext_resource type="Texture2D" uid="uid://cbfueanw3ptr1" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/5.png" id="4_fey6j"]
