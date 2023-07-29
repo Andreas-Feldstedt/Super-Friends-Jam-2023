@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bk01gkehxb2ck"
+path="res://.godot/imported/Hellhound_idle.png-5a14430882b5f3d5dad03f18e8a87500.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Game Kit/hell-monster-pixel-art-game-sprite-pack/3 Hellhound/Hellhound_idle.png"
+dest_files=["res://.godot/imported/Hellhound_idle.png-5a14430882b5f3d5dad03f18e8a87500.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
