@@ -1,8 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://2usjvdnhqt4q"]
+[gd_scene load_steps=5 format=3 uid="uid://2usjvdnhqt4q"]
 
 [ext_resource type="Script" path="res://BeatMachine/BeatMachine.cs" id="1_60qoa"]
+[ext_resource type="AudioStream" uid="uid://dwpolvgspvpgr" path="res://BeatMachine/rolly-rolling_alien_ball_-_take_two.mp3" id="1_fmpeu"]
+[ext_resource type="Texture2D" uid="uid://dgsxrs46wq86o" path="res://Game Kit/30-pixel-art-monster-portrait-icons/1 Main characters/Portraits2_01.png" id="3_8phq2"]
+[ext_resource type="Script" path="res://BeatMachine/TestBeatMachine.cs" id="4_y1c1w"]
 
 [node name="Node3D" type="Node2D"]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_fmpeu")
+autoplay = true
 script = ExtResource("1_60qoa")
+
+[node name="Portraits201" type="Sprite2D" parent="."]
+position = Vector2(246, 93)
+texture = ExtResource("3_8phq2")
+script = ExtResource("4_y1c1w")
+_offset = Vector2(100, 100)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(246, 93)
