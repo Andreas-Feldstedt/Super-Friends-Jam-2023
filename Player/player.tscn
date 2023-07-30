@@ -1,10 +1,23 @@
-[gd_scene load_steps=17 format=3 uid="uid://jf8yyjaiurlj"]
+[gd_scene load_steps=21 format=3 uid="uid://jf8yyjaiurlj"]
 
 [ext_resource type="Script" path="res://Player/PlayerBehaviour.cs" id="1_a6v8i"]
 [ext_resource type="Script" path="res://Player/BeatIndicator.cs" id="2_ij5jq"]
 [ext_resource type="Texture2D" uid="uid://4sq7n0siafe7" path="res://Game Kit/pixel-art-tiny-hero-sprites/3 Dude_Monster/Dude_Monster_Idle_4.png" id="2_tw6fx"]
 [ext_resource type="Texture2D" uid="uid://8fffpk7l43bq" path="res://Game Kit/pixel-art-tiny-hero-sprites/3 Dude_Monster/Dude_Monster_Run_6.png" id="3_c6epm"]
+[ext_resource type="Texture2D" uid="uid://betg7tdc04lk6" path="res://Game Kit/pixel-art-tiny-hero-sprites/3 Dude_Monster/Dude_Monster_Jump_8.png" id="3_h3cx2"]
 [ext_resource type="PackedScene" uid="uid://c7co6uf02isk0" path="res://BeatMachine/metronome.tscn" id="5_vghlg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eijqu"]
+atlas = ExtResource("3_h3cx2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gm8bc"]
+atlas = ExtResource("3_h3cx2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41s7d"]
+atlas = ExtResource("3_h3cx2")
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6h7ne"]
 atlas = ExtResource("2_tw6fx")
@@ -50,6 +63,20 @@ region = Rect2(160, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_eijqu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gm8bc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41s7d")
+}],
+"loop": true,
+"name": &"charging",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_6h7ne")
 }, {
 "duration": 1.0,
@@ -86,12 +113,13 @@ animations = [{
 }],
 "loop": true,
 "name": &"run",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_a6v8i")
 _errorGrace = 0.25
+_moveDurationSeconds = 0.1
 
 [node name="Beat Indicator" type="Sprite2D" parent="."]
 script = ExtResource("2_ij5jq")
@@ -99,17 +127,19 @@ script = ExtResource("2_ij5jq")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_5c4tb")
-frame_progress = 0.142834
+animation = &"charging"
+autoplay = "default"
+frame_progress = 0.764439
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -76)
+[node name="Camera2D" type="Camera2D" parent="AnimatedSprite2D"]
+position = Vector2(0, -60)
 zoom = Vector2(3, 3)
 
-[node name="Metronome" parent="Camera2D" instance=ExtResource("5_vghlg")]
+[node name="Metronome" parent="AnimatedSprite2D/Camera2D" instance=ExtResource("5_vghlg")]
 position = Vector2(0, -83)
 
 [node name="GroundRay" type="RayCast2D" parent="."]
-target_position = Vector2(0, 16)
+target_position = Vector2(1, 16)
 hit_from_inside = true
 
 [node name="GravityRay" type="RayCast2D" parent="."]

@@ -21,6 +21,7 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 	private string _currentAction = "empty";
 	private bool _currentActionPressed = false;
 	private int _currentActionBeat = -1;
+	private PhysicsDirectSpaceState2D _space;
 
 	private string[] _actions = new string[]
 	{
@@ -32,7 +33,8 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 
 	private RayCast2D _groundRay;
 	private RayCast2D _gravityRay;
-
+	private AnimatedSprite2D _sprite;
+	private Vector2 _spriteOffset;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -42,6 +44,9 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 		_gridPosition = Position;
 		_groundRay = GetNode<RayCast2D>("GroundRay");
 		_gravityRay = GetNode<RayCast2D>("GravityRay");
+		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+
+		_spriteOffset = _sprite.Position;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,11 +63,17 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 		HandleInput();
 	}
 
+	public override void _PhysicsProcess(double delta)
+	{
+		base._PhysicsProcess(delta);
+
+		_space = GetWorld2D().DirectSpaceState;
+	}
+
 	private void BeatGracePrep()
 	{
 		_currentBeat++;
 		_phase = BeatPhase.PreBeat;
-		_isGrounded = GroundCheck();
 		_canAct = true;
 	}
 
@@ -75,6 +86,7 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 	private void BeatGraceWrap()
 	{
 		_phase = BeatPhase.Off;
+		_isGrounded = GroundCheck();
 		HandleGravity();
 		_canAct = false;
 	}
@@ -101,23 +113,22 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 		}
 	}
 
-	/// <summary>
-	/// Calculates how far off the beat you currently are.
-	/// </summary>
-	/// <returns>The distance to the nearest beat in beats, ranges from -0.5 to 0.5.</returns>
-	private float GetError()
-	{
-		float beat = Mathf.PosMod(_bm.SingletonTimeBeat, 1);
-		float error = beat > 0.5 ? beat - 1 : beat;
-
-		return error;
-	}
-
 	private void ConsumeAction(string action, bool pressed, int beat)
 	{
 		if (pressed)
 		{
 			// TODO: Set charge-up animation
+			_sprite.Animation = "charging";
+
+			if (action == "left")
+			{
+				_sprite.FlipH = true;
+			}
+			else if (action == "right")
+			{
+				_sprite.FlipH = false;
+			}
+
 		}
 		else
 		{
@@ -172,35 +183,62 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 
 	private void Dash(Vector2 direction)
 	{
-		_gridPosition += direction * _tileSizePixels * 2;
+		if (!_isGrounded)
+			return;
 
-		if (_moveTween != null)
-			_moveTween.Kill();
+		Vector2 raycastOrigin = _gridPosition + Vector2.Up * 16;
+		Vector2 rayCastDestination = raycastOrigin + (direction * _tileSizePixels);
 
-		_moveTween = GetTree().CreateTween();
-		_moveTween.TweenProperty(this, "position", _gridPosition, _moveDurationSeconds).SetTrans(Tween.TransitionType.Expo);
-		_moveTween.SetEase(Tween.EaseType.InOut);
+		PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(raycastOrigin, rayCastDestination);
+		Godot.Collections.Dictionary result = _space.IntersectRay(query);
 
-		_canAct = false;
-	}
+		if (result.Count == 0)
+		{
+			_gridPosition = _gridPosition + direction * _tileSizePixels * 2;
+			Position = _gridPosition;
+			_sprite.Position -= direction * _tileSizePixels * 2;
+			_sprite.Animation = "run";
 
-	private void Stumble()
-	{
-		GD.Print("Stumble!");
+			_moveTween?.Kill();
+			_moveTween = GetTree().CreateTween();
+			_moveTween.TweenProperty(_sprite, "position", _spriteOffset, _moveDurationSeconds).SetTrans(Tween.TransitionType.Expo);
+			_moveTween.SetEase(Tween.EaseType.InOut);
+			_moveTween.TweenCallback(Callable.From(() => _sprite.Animation = "default")).SetDelay(_moveDurationSeconds);
+
+			_isGrounded = GroundCheck();
+
+			_canAct = false;
+		}
 	}
 
 	private void Move(Vector2 direction)
 	{
-		_gridPosition += direction * _tileSizePixels;
+		if (!_isGrounded)
+			return;
 
-		if (_moveTween != null)
-			_moveTween.Kill();
+		Vector2 raycastOrigin = _gridPosition + Vector2.Up * 16;
+		Vector2 rayCastDestination = raycastOrigin + (direction * _tileSizePixels);
 
-		_moveTween = GetTree().CreateTween();
-		_moveTween.TweenProperty(this, "position", _gridPosition, _moveDurationSeconds).SetTrans(Tween.TransitionType.Expo);
-		_moveTween.SetEase(Tween.EaseType.InOut);
+		PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(raycastOrigin, rayCastDestination);
+		Godot.Collections.Dictionary result = _space.IntersectRay(query);
 
-		_canAct = false;
+		if (result.Count == 0)
+		{
+			_gridPosition = _gridPosition + direction * _tileSizePixels;
+			Position = _gridPosition;
+			_sprite.Position -= direction * _tileSizePixels;
+			_sprite.Animation = "run";
+
+			_moveTween?.Kill();
+			_moveTween = GetTree().CreateTween();
+			_moveTween.TweenProperty(_sprite, "position", _spriteOffset, _moveDurationSeconds).SetTrans(Tween.TransitionType.Expo);
+			_moveTween.SetEase(Tween.EaseType.InOut);
+			_moveTween.TweenCallback(Callable.From(() => _sprite.Animation = "default")).SetDelay(_moveDurationSeconds);
+
+			_isGrounded = GroundCheck();
+
+			_canAct = false;
+		}
 	}
 
 	private void Jump()
@@ -224,7 +262,7 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 			{
 				if (_moveTween != null)
 				{
-					Position = _gridPosition;
+					_sprite.Position = _spriteOffset;
 					_moveTween.Kill();
 				}
 
@@ -243,15 +281,6 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 
 	private bool GroundCheck()
 	{
-		if (_groundRay.IsColliding())
-		{
-			GD.Print(_groundRay.GetCollider());
-		}
-		else
-		{
-			GD.Print("Help");
-		}
-
 		return _groundRay.IsColliding();
 	}
 
