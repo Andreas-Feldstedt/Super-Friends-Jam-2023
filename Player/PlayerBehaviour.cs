@@ -86,12 +86,27 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 		_phase = BeatPhase.Off;
 		_isGrounded = GroundCheck();
 		HandleGravity();
+
+		if(_currentActionBeat < _currentBeat)
+		{
+			_currentAction = string.Empty;
+			_currentActionBeat = -1;
+			_currentActionPressed = false;
+
+			_sprite.Play("default");
+		}
+
 		_canAct = false;
 	}
 
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseMotion)
+			return;
+
+		InputEventKey key = @event as InputEventKey;
+
+		if (key.Echo)
 			return;
 
 		HandleInput();
