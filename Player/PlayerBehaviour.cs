@@ -17,7 +17,6 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 	private bool _canAct = true;
 	private bool _skipGravity;
 	private bool _isGrounded;
-	private int _jumpCharge = 1;
 
 	private string _currentAction = "empty";
 	private bool _currentActionPressed = false;
@@ -163,7 +162,8 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 							Dash(Vector2.Right);
 							break;
 						case "up":
-						// TODO: Charged jump
+							HighJump();
+							break;
 						case "down":
 						default:
 							break;
@@ -244,13 +244,13 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 		{
 			_skipGravity = true;
 
-			Vector2 raycastOrigin = _gridPosition + Vector2.Up * _tileSizePixels;
+			Vector2 raycastOrigin = _gridPosition + Vector2.Up * _tileSizePixels / 2;
 			Vector2 rayCastDestination = raycastOrigin + (Vector2.Up * _tileSizePixels);
 
 			PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(raycastOrigin, rayCastDestination);
 			Godot.Collections.Dictionary result = _space.IntersectRay(query);
 
-			if(result.Count == 0)
+			if (result.Count == 0)
 			{
 				_gridPosition = _gridPosition + Vector2.Up * _tileSizePixels;
 				Position = _gridPosition;
@@ -276,7 +276,38 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 
 	private void DoubleJump()
 	{
+		
+	}
 
+	private void HighJump()
+	{
+		_skipGravity = true;
+
+		Vector2 raycastOrigin = _gridPosition + Vector2.Up * _tileSizePixels / 2;
+		Vector2 rayCastDestination = raycastOrigin + (Vector2.Up * _tileSizePixels * 2);
+
+		PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(raycastOrigin, rayCastDestination);
+		Godot.Collections.Dictionary result = _space.IntersectRay(query);
+
+		if (result.Count == 0)
+		{
+			_gridPosition = _gridPosition + Vector2.Up * _tileSizePixels * 2;
+			Position = _gridPosition;
+			_sprite.Position -= Vector2.Up * _tileSizePixels * 2;
+			_sprite.Animation = "jump";
+
+			_moveTween?.Kill();
+			_moveTween = GetTree().CreateTween();
+			_moveTween.TweenProperty(_sprite, "position", _spriteOffset, _moveDurationSeconds).SetTrans(Tween.TransitionType.Expo);
+			_moveTween.SetEase(Tween.EaseType.InOut);
+			_moveTween.TweenCallback(Callable.From(() => _sprite.Animation = "default")).SetDelay(_moveDurationSeconds);
+
+			_isGrounded = GroundCheck();
+		}
+		else
+		{
+			Jump();
+		}
 	}
 
 	private void HandleGravity()
