@@ -190,7 +190,7 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 			return;
 
 		Vector2 raycastOrigin = _gridPosition + Vector2.Up * 16;
-		Vector2 rayCastDestination = raycastOrigin + (direction * _tileSizePixels);
+		Vector2 rayCastDestination = raycastOrigin + (direction * _tileSizePixels * 2);
 
 		PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(raycastOrigin, rayCastDestination);
 		Godot.Collections.Dictionary result = _space.IntersectRay(query);
@@ -211,6 +211,10 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 			_isGrounded = GroundCheck();
 
 			_canAct = false;
+		}
+		else
+		{
+			Move(direction);
 		}
 	}
 
