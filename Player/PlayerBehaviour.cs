@@ -117,16 +117,19 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 	{
 		if (pressed)
 		{
-			// TODO: Set charge-up animation
-			_sprite.Animation = "charging";
-
 			if (action == "left")
 			{
+				_sprite.Animation = "charging";
 				_sprite.FlipH = true;
 			}
 			else if (action == "right")
 			{
+				_sprite.Animation = "charging";
 				_sprite.FlipH = false;
+			}
+			else if (action == "up")
+			{
+				_sprite.Animation = "charging_jump";
 			}
 		}
 		else
@@ -276,7 +279,7 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 
 	private void DoubleJump()
 	{
-		
+
 	}
 
 	private void HighJump()
