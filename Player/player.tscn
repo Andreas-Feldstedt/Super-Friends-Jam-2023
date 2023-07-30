@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://4sq7n0siafe7" path="res://Game Kit/pixel-art-tiny-hero-sprites/3 Dude_Monster/Dude_Monster_Idle_4.png" id="2_tw6fx"]
 [ext_resource type="Texture2D" uid="uid://8fffpk7l43bq" path="res://Game Kit/pixel-art-tiny-hero-sprites/3 Dude_Monster/Dude_Monster_Run_6.png" id="3_c6epm"]
 [ext_resource type="Texture2D" uid="uid://betg7tdc04lk6" path="res://Game Kit/pixel-art-tiny-hero-sprites/3 Dude_Monster/Dude_Monster_Jump_8.png" id="3_h3cx2"]
-[ext_resource type="PackedScene" uid="uid://c7co6uf02isk0" path="res://BeatMachine/metronome.tscn" id="5_vghlg"]
+[ext_resource type="PackedScene" uid="uid://1q5kodx4nm6" path="res://BeatMachine/metronome_2.tscn" id="6_1r82t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fci1r"]
 atlas = ExtResource("3_c6epm")
@@ -193,8 +193,8 @@ autoplay = "default"
 position = Vector2(0, -60)
 zoom = Vector2(3, 3)
 
-[node name="Metronome" parent="AnimatedSprite2D/Camera2D" instance=ExtResource("5_vghlg")]
-position = Vector2(0, -83)
+[node name="Metronome Outer" parent="AnimatedSprite2D/Camera2D" instance=ExtResource("6_1r82t")]
+z_index = 10
 
 [node name="GroundRay" type="RayCast2D" parent="."]
 target_position = Vector2(1, 16)

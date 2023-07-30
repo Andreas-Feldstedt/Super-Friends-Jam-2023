@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://1q5kodx4nm6"]
+
+[ext_resource type="Texture2D" uid="uid://bbvrsoxgb3mck" path="res://Game Kit/10-magic-sprite-sheet-effects-pixel-art/3 Midas touch/Midas-touch.png" id="1_2cjlt"]
+[ext_resource type="Script" path="res://LevelManager/Metronome.cs" id="2_c6bsx"]
+
+[node name="Metronome" type="Sprite2D"]
+texture = ExtResource("1_2cjlt")
+region_enabled = true
+region_rect = Rect2(161, 31, 37, 37)
+
+[node name="Metronome Inner" type="Sprite2D" parent="."]
+position = Vector2(0, 0.5)
+texture = ExtResource("1_2cjlt")
+region_enabled = true
+region_rect = Rect2(232, 30, 39, 40)
+script = ExtResource("2_c6bsx")
