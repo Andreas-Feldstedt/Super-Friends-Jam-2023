@@ -17,11 +17,11 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 	private bool _canAct = true;
 	private bool _skipGravity;
 	private bool _isGrounded;
+	private int _jumpCharge = 1;
 
 	private string _currentAction = "empty";
 	private bool _currentActionPressed = false;
 	private int _currentActionBeat = -1;
-	private PhysicsDirectSpaceState2D _space;
 
 	private string[] _actions = new string[]
 	{
@@ -31,6 +31,7 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 		"right"
 	};
 
+	private PhysicsDirectSpaceState2D _space;
 	private RayCast2D _groundRay;
 	private RayCast2D _gravityRay;
 	private AnimatedSprite2D _sprite;
@@ -128,7 +129,6 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 			{
 				_sprite.FlipH = false;
 			}
-
 		}
 		else
 		{
@@ -243,7 +243,43 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 
 	private void Jump()
 	{
+		if (_isGrounded)
+		{
+			_skipGravity = true;
+
+			Vector2 raycastOrigin = _gridPosition + Vector2.Up * _tileSizePixels;
+			Vector2 rayCastDestination = raycastOrigin + (Vector2.Up * _tileSizePixels);
+
+			PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(raycastOrigin, rayCastDestination);
+			Godot.Collections.Dictionary result = _space.IntersectRay(query);
+
+			if(result.Count == 0)
+			{
+				_gridPosition = _gridPosition + Vector2.Up * _tileSizePixels;
+				Position = _gridPosition;
+				_sprite.Position -= Vector2.Up * _tileSizePixels;
+				_sprite.Animation = "jump";
+
+				_moveTween?.Kill();
+				_moveTween = GetTree().CreateTween();
+				_moveTween.TweenProperty(_sprite, "position", _spriteOffset, _moveDurationSeconds).SetTrans(Tween.TransitionType.Expo);
+				_moveTween.SetEase(Tween.EaseType.InOut);
+				_moveTween.TweenCallback(Callable.From(() => _sprite.Animation = "default")).SetDelay(_moveDurationSeconds);
+
+				_isGrounded = GroundCheck();
+			}
+		}
+		else
+		{
+			DoubleJump();
+		}
+
 		_canAct = false;
+	}
+
+	private void DoubleJump()
+	{
+
 	}
 
 	private void HandleGravity()
