@@ -1,7 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://3ipbp3y8mkxp"]
+[gd_scene load_steps=28 format=3 uid="uid://3ipbp3y8mkxp"]
 
 [ext_resource type="Texture2D" uid="uid://bafy1xvpha6c5" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/8.png" id="1_qtdtw"]
-[ext_resource type="PackedScene" uid="uid://omasqr86rqry" path="res://BeatMachine/beat_machine.tscn" id="1_xb38y"]
+[ext_resource type="PackedScene" path="res://BeatMachine/beat_machine.tscn" id="1_xb38y"]
 [ext_resource type="Texture2D" uid="uid://b56wk8tx1stmu" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/7.png" id="2_ndjle"]
 [ext_resource type="Texture2D" uid="uid://dpfh3xk3ovxs0" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/6.png" id="3_u0vxb"]
 [ext_resource type="Texture2D" uid="uid://cbfueanw3ptr1" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/5.png" id="4_fey6j"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://bn5vo6jehniv6" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/2.png" id="7_wyyvb"]
 [ext_resource type="Texture2D" uid="uid://c2i7xjkawlucu" path="res://Game Kit/platformer-pixel-art-tileset/Background/Layers/1.png" id="8_muovx"]
 [ext_resource type="TileSet" uid="uid://c1r5ncgtjqo4t" path="res://Scene/fieldtiles.tres" id="9_ycxh7"]
-[ext_resource type="Texture2D" uid="uid://cciuo4sl08fao" path="res://Game Kit/platformer-pixel-art-tileset/Tiles/Back_TileSet.png" id="10_qfjvx"]
 [ext_resource type="PackedScene" uid="uid://jf8yyjaiurlj" path="res://Player/player.tscn" id="12_1jhko"]
 [ext_resource type="Texture2D" uid="uid://cb0t2mrdi7q65" path="res://Game Kit/tiny-monsters-pixel-art-pack/1 Bear/Bear.png" id="13_4ikx0"]
 [ext_resource type="Texture2D" uid="uid://dtls0lsanepyl" path="res://Game Kit/platformer-pixel-art-tileset/Objects/Spikes/Spikes1_1.png" id="14_wc7ce"]
@@ -27,29 +26,8 @@
 [ext_resource type="Texture2D" uid="uid://c6o6jnkc2xe6j" path="res://Game Kit/platformer-pixel-art-tileset/Objects/Trees/Tree1.png" id="25_tlce5"]
 [ext_resource type="PackedScene" uid="uid://35kk2www25gj" path="res://Scene/animations/coin.tscn" id="26_8o7bb"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_egm3h"]
-texture = ExtResource("10_qfjvx")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-0:3/0 = 0
-1:3/0 = 0
-2:3/0 = 0
-3:3/0 = 0
-
 [sub_resource type="TileSet" id="TileSet_rhtcr"]
 tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_egm3h")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aux8n"]
 size = Vector2(32, 23)
