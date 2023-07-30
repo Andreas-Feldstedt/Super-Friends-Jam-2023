@@ -213,9 +213,6 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 
 	private void Move(Vector2 direction)
 	{
-		if (!_isGrounded)
-			return;
-
 		Vector2 raycastOrigin = _gridPosition + Vector2.Up * 16;
 		Vector2 rayCastDestination = raycastOrigin + (direction * _tileSizePixels);
 
