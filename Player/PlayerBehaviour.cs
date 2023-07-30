@@ -59,8 +59,6 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 
 		if (_phase == BeatPhase.PostBeat && _elapsedAfterBeat >= _errorGrace)
 			BeatGraceWrap();
-
-		HandleInput();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -91,10 +89,22 @@ public partial class PlayerBehaviour : Node2D, IProcessBeat
 		_canAct = false;
 	}
 
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventMouseMotion)
+			return;
+
+		HandleInput();
+	}
+
 	private void HandleInput()
 	{
 		if (!_canAct)
-			return; // TODO: Stumble?
+		{
+			_sprite.Play("stumble");
+
+			return;
+		}
 
 		foreach (string action in _actions)
 		{

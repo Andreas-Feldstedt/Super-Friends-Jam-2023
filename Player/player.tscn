@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://jf8yyjaiurlj"]
+[gd_scene load_steps=31 format=3 uid="uid://jf8yyjaiurlj"]
 
 [ext_resource type="Script" path="res://Player/PlayerBehaviour.cs" id="1_a6v8i"]
 [ext_resource type="Script" path="res://Player/BeatIndicator.cs" id="2_ij5jq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://8fffpk7l43bq" path="res://Game Kit/pixel-art-tiny-hero-sprites/3 Dude_Monster/Dude_Monster_Run_6.png" id="3_c6epm"]
 [ext_resource type="Texture2D" uid="uid://betg7tdc04lk6" path="res://Game Kit/pixel-art-tiny-hero-sprites/3 Dude_Monster/Dude_Monster_Jump_8.png" id="3_h3cx2"]
 [ext_resource type="PackedScene" uid="uid://1q5kodx4nm6" path="res://BeatMachine/metronome_2.tscn" id="6_1r82t"]
+[ext_resource type="Texture2D" uid="uid://cta536kv6ndsq" path="res://Game Kit/pixel-art-tiny-hero-sprites/3 Dude_Monster/Dude_Monster_Death_8.png" id="6_6b88u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fci1r"]
 atlas = ExtResource("3_c6epm")
@@ -86,6 +87,14 @@ region = Rect2(128, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_l2670"]
 atlas = ExtResource("3_c6epm")
 region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2puem"]
+atlas = ExtResource("6_6b88u")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gekfy"]
+atlas = ExtResource("6_6b88u")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5c4tb"]
 animations = [{
@@ -173,6 +182,20 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2puem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gekfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2puem")
+}],
+"loop": false,
+"name": &"stumble",
+"speed": 5.0
 }]
 
 [node name="Player" type="Node2D"]
@@ -186,8 +209,10 @@ script = ExtResource("2_ij5jq")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_5c4tb")
-animation = &"charging_jump"
+animation = &"stumble"
 autoplay = "default"
+frame = 2
+frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="AnimatedSprite2D"]
 position = Vector2(0, -60)
